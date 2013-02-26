@@ -607,10 +607,12 @@ quote(dbh, str, type=NULL)
   PROTOTYPE: $$;$
   PPCODE:
     {
+        SV* quoted;
+
         D_imp_dbh(dbh);
         ASYNC_CHECK_XS(dbh);
 
-        SV* quoted = dbd_db_quote(dbh, str, type);
+        quoted = dbd_db_quote(dbh, str, type);
 	ST(0) = quoted ? sv_2mortal(quoted) : str;
 	XSRETURN(1);
     }
